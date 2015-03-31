@@ -1,6 +1,9 @@
 FROM shipimg/ubuntu1204_java:latest
 
-RUN FILE=`mktemp`; wget https://dl.bintray.com/sbt/debian/sbt-0.13.6.deb -qO $FILE && dpkg -i $FILE && rm $FILE
+RUN apt-get update -y && apt-get install -y curl
+
+RUN curl -s "https://raw.githubusercontent.com/paulp/sbt-extras/master/sbt" > /usr/bin/sbt && chmod 0755 /usr/bin/sbt
+
 RUN FILE=`mktemp`; wget http://downloads.typesafe.com/scala/2.11.2/scala-2.11.2.deb -qO $FILE && dpkg -i $FILE && rm $FILE
 
 CMD ["/bin/bash"]
